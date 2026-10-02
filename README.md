@@ -75,27 +75,5 @@ curl -X POST http://127.0.0.1:5000/api/predict -H "Content-Type: application/jso
 
 Returns `prediction`, `label`, `interval_low`, `interval_high`, `at_risk`. Invalid input returns HTTP 400 with an error message.
 
-## Limitations and fairness note
 
-- The model uses `gender` and `race_ethnicity` because they improve accuracy on this dataset. In a real school setting, using protected attributes to score individual students is ethically and often legally problematic. The ablation shows the accuracy cost of removing them (gender: +2.8 RMSE) so the trade-off is explicit.
-- The dataset is small and appears to be synthetic/educational; results will not transfer to other schools without retraining.
-- The prediction interval is global (same width for everyone), derived from out-of-fold residuals.
-- `at_risk` (predicted < 50) is a simple threshold on the regression output, not a trained classifier.
 
-## Interview explanations
-
-**Why Pipeline + ColumnTransformer?** Preprocessing and model are fitted together, so training and prediction can never go out of sync; numeric and categorical columns need different transformations.
-
-**Why `handle_unknown="ignore"`?** Unseen categories at prediction time produce an all-zero encoding instead of a crash (covered by a test).
-
-**Why repeated CV and the 1-SE rule?** With 1,000 rows one split is noisy (RMSE ranged 4.8–5.9 across seeds). CV gives mean ± std, and the 1-SE rule prefers the simpler model when differences are not significant.
-
-**Why didn't feature engineering help?** The engineered features were linear combinations of existing ones, and the target is almost linear in the inputs. They remain in the pipeline (`use_fe=True`) for tree models, where they gave a small gain.
-
-## Future improvements
-
-- SHAP / per-student explanation in the UI
-- Prediction history in SQLite
-- Classification model for pass/fail risk
-- Docker + deployment (Render/Railway/Azure)
-- Model monitoring and scheduled retraining

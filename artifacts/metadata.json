@@ -1,0 +1,39 @@
+{
+    "target": "math_score",
+    "best_model": "Linear Regression",
+    "best_params": {},
+    "selection_rule": "simplest model within 1 standard error of the lowest CV RMSE",
+    "features": [
+        "gender",
+        "race_ethnicity",
+        "parental_level_of_education",
+        "lunch",
+        "test_preparation_course",
+        "reading_score",
+        "writing_score"
+    ],
+    "feature_engineering": false,
+    "dataset_rows": 1000,
+    "test_size": 0.2,
+    "cv": "RepeatedKFold(5 folds x 2 repeats) on the training split",
+    "test_metrics": {
+        "rmse": 5.394,
+        "mae": 4.2148,
+        "r2": 0.8804
+    },
+    "prediction_interval": {
+        "lower": -9.203,
+        "upper": 9.394,
+        "coverage": 0.9
+    },
+    "permutation_importance": {
+        "writing_score": 11.1287,
+        "gender": 5.5636,
+        "reading_score": 1.8964,
+        "test_preparation_course": 0.6039,
+        "lunch": 0.3113,
+        "race_ethnicity": 0.252,
+        "parental_level_of_education": 0.0645
+    },
+    "sklearn_version": "1.8.0"
+}

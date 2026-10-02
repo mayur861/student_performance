@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudentIQ | Performance Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+
+<nav class="navbar">
+    <div class="brand"><span class="brand-dot"></span> StudentIQ</div>
+    <div class="nav-text">AI Student Performance Analytics</div>
+</nav>
+
+<main class="container">
+    <section class="hero">
+        <div>
+            <p class="eyebrow">MACHINE LEARNING • END-TO-END PIPELINE</p>
+            <h1>Predict student <span>performance</span> with AI.</h1>
+            <p class="subtitle">
+                Enter student details and academic scores. The trained ML pipeline
+                predicts the expected Mathematics score instantly.
+            </p>
+        </div>
+        <div class="hero-card">
+            <div class="hero-icon">🎓</div>
+            <div><strong>Smart Prediction</strong><small>Production-ready Flask app</small></div>
+        </div>
+    </section>
+
+    <section class="grid">
+        <form class="card form-card" method="POST">
+            <div class="card-title">
+                <div>
+                    <h2>Student Profile</h2>
+                    <p>Provide the required information</p>
+                </div>
+                <span class="step">01</span>
+            </div>
+
+            <div class="form-grid">
+                <label>Gender
+                    <select name="gender" required>
+                        <option value="female">Female</option>
+                        <option value="male">Male</option>
+                    </select>
+                </label>
+
+                <label>Race / Ethnicity
+                    <select name="race_ethnicity" required>
+                        <option value="group A">Group A</option>
+                        <option value="group B">Group B</option>
+                        <option value="group C" selected>Group C</option>
+                        <option value="group D">Group D</option>
+                        <option value="group E">Group E</option>
+                    </select>
+                </label>
+
+                <label>Parental Education
+                    <select name="parental_level_of_education" required>
+                        <option value="some high school">Some high school</option>
+                        <option value="high school">High school</option>
+                        <option value="some college" selected>Some college</option>
+                        <option value="associate's degree">Associate's degree</option>
+                        <option value="bachelor's degree">Bachelor's degree</option>
+                        <option value="master's degree">Master's degree</option>
+                    </select>
+                </label>
+
+                <label>Lunch
+                    <select name="lunch" required>
+                        <option value="standard" selected>Standard</option>
+                        <option value="free/reduced">Free / Reduced</option>
+                    </select>
+                </label>
+
+                <label>Test Preparation
+                    <select name="test_preparation_course" required>
+                        <option value="none" selected>None</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </label>
+
+                <label>Reading Score
+                    <input type="number" name="reading_score" min="0" max="100" value="75" required>
+                </label>
+
+                <label>Writing Score
+                    <input type="number" name="writing_score" min="0" max="100" value="75" required>
+                </label>
+            </div>
+
+            <button class="predict-btn" type="submit">
+                Predict Mathematics Score <span>→</span>
+            </button>
+
+            {% if error %}
+                <div class="error">{{ error }}</div>
+            {% endif %}
+        </form>
+
+        <aside class="card result-card">
+            <div class="card-title">
+                <div>
+                    <h2>Prediction</h2>
+                    <p>AI-generated estimated score</p>
+                </div>
+                <span class="step">02</span>
+            </div>
+
+            {% if prediction is not none %}
+                <div class="score-ring">
+                    <div class="score-value">{{ "%.1f"|format(prediction) }}</div>
+                    <div class="score-max">/ 100</div>
+                </div>
+                <div class="performance">{{ label }}</div>
+                <div class="meter">
+                    <div style="width: {{ prediction }}%"></div>
+                </div>
+                <p class="result-note">
+                    <strong>{{ "%.0f"|format(result.interval_coverage * 100) }}% prediction range:
+                    {{ result.interval_low }} – {{ result.interval_high }}</strong>
+                    {% if result.at_risk %}<br>⚠ Predicted below 50: this student may need extra support.{% endif %}
+                </p>
+                <p class="result-note">
+                    Estimate from {{ model_name }} (test R² {{ test_r2 }}). This is a machine-learning
+                    estimate, not an official examination score.
+                </p>
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-icon">📊</div>
+                    <h3>Your result will appear here</h3>
+                    <p>Fill the profile and click the prediction button.</p>
+                </div>
+            {% endif %}
+        </aside>
+    </section>
+
+    <section class="stats">
+        <div><strong>1,000+</strong><span>Student Records</span></div>
+        <div><strong>7</strong><span>Input Features</span></div>
+        <div><strong>Pipeline</strong><span>Preprocessing + Model</span></div>
+        <div><strong>Flask</strong><span>Web Deployment</span></div>
+    </section>
+</main>
+
+<footer>StudentIQ • Student Performance Prediction • Built with Python & Scikit-learn</footer>
+</body>
+</html>

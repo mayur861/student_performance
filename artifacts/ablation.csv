@@ -1,0 +1,10 @@
+setting,cv_rmse,delta_vs_full
+all features,5.418,0.0
+drop gender,8.183,2.765
+drop race_ethnicity,5.646,0.228
+drop parental_level_of_education,5.433,0.015
+drop lunch,5.611,0.193
+drop test_preparation_course,5.627,0.209
+drop reading_score,5.514,0.096
+drop writing_score,6.077,0.659
+only demographics (no reading/writing),13.3,7.882

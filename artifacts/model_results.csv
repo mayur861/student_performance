@@ -1,0 +1,7 @@
+model,cv_rmse,cv_rmse_std,test_rmse,test_mae,test_r2,best_params
+Baseline (mean),15.0169,0.7226,15.7316,12.3399,-0.017,{}
+Linear Regression,5.4348,0.2624,5.394,4.2148,0.8804,{}
+Ridge,5.4312,0.2756,5.3858,4.206,0.8808,"{""alpha"": 3}"
+Ridge + FE,5.4327,0.2649,5.3929,4.2095,0.8805,"{""alpha"": 3}"
+Random Forest + FE,6.0039,0.2802,6.1807,4.7326,0.843,"{""max_depth"": 8, ""min_samples_leaf"": 3}"
+Gradient Boosting + FE,5.6697,0.2353,5.4524,4.2683,0.8778,"{""learning_rate"": 0.06, ""max_depth"": 2, ""n_estimators"": 300, ""subsample"": 0.8}"
